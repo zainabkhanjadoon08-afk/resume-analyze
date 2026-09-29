@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeIQ — Smart Resume Analyzer</title>
+    <meta name="description" content="Analyze your resume instantly. Get ATS score, keyword analysis, formatting checks, and actionable improvement tips.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-brand">
+            <div class="logo-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                    <rect x="2" y="2" width="24" height="24" rx="6" stroke="url(#logoGrad)" stroke-width="2.5"/>
+                    <path d="M8 9h12M8 13h8M8 17h10" stroke="url(#logoGrad)" stroke-width="2" stroke-linecap="round"/>
+                    <defs>
+                        <linearGradient id="logoGrad" x1="0" y1="0" x2="28" y2="28">
+                            <stop stop-color="#00e5ff"/>
+                            <stop offset="1" stop-color="#8b5cf6"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <span class="brand-text">Resume<span class="brand-accent">IQ</span></span>
+        </div>
+        <div class="nav-links">
+            <a href="#analyzer" class="nav-link active">Analyzer</a>
+            <a href="#how-it-works" class="nav-link">How It Works</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                AI-Powered Analysis
+            </div>
+            <h1 class="hero-title">
+                Analyze Your Resume<br>
+                <span class="gradient-text">In Seconds</span>
+            </h1>
+            <p class="hero-subtitle">
+                Get instant feedback on your resume's formatting, keywords, structure, and ATS compatibility. Land more interviews with data-driven improvements.
+            </p>
+            <a href="#analyzer" class="hero-cta" id="hero-cta">
+                <span>Start Analyzing</span>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M4 10h12m-4-4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-card">
+                <span class="stat-number" data-target="10000">0</span>
+                <span class="stat-label">Resumes Analyzed</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" data-target="95">0</span>
+                <span class="stat-label">% Accuracy</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" data-target="50">0</span>
+                <span class="stat-label">+ Checks Run</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Analyzer Section -->
+    <section class="analyzer-section" id="analyzer">
+        <div class="section-header">
+            <h2 class="section-title">Paste Your Resume</h2>
+            <p class="section-desc">Copy-paste your resume text below and let our engine analyze it thoroughly.</p>
+        </div>
+
+        <div class="analyzer-grid">
+            <!-- Input Panel -->
+            <div class="input-panel glass-card">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <rect x="2" y="2" width="14" height="14" rx="3" stroke="#8b5cf6" stroke-width="1.5"/>
+                            <path d="M6 6h6M6 9h4M6 12h5" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Resume Input
+                    </div>
+                    <div class="char-count" id="char-count">0 characters</div>
+                </div>
+                <textarea
+                    id="resume-input"
+                    class="resume-textarea"
+                    placeholder="Paste your entire resume text here...
+
+Example:
+JOHN DOE
+Software Engineer | john@email.com | (555) 123-4567
+
+SUMMARY
+Experienced software engineer with 5+ years of experience in full-stack development...
+
+EXPERIENCE
+Senior Software Engineer — Google (2020 - Present)
+• Led development of microservices architecture serving 10M+ users
+• Reduced API response time by 40% through optimization
+
+EDUCATION
+B.S. Computer Science — MIT (2015 - 2019)
+
+SKILLS
+JavaScript, Python, React, Node.js, AWS, Docker, Kubernetes"
+                    spellcheck="false"
+                ></textarea>
+                <div class="input-actions">
+                    <button class="btn btn-secondary" id="btn-clear">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Clear
+                    </button>
+                    <button class="btn btn-secondary" id="btn-sample">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M5 8h6M8 5v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Load Sample
+                    </button>
+                    <button class="btn btn-primary" id="btn-analyze">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M11 11l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Analyze Resume
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Panel -->
+            <div class="results-panel" id="results-panel">
+                <!-- Empty State -->
+                <div class="empty-state" id="empty-state">
+                    <div class="empty-icon">
+                        <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                            <rect x="12" y="8" width="40" height="48" rx="6" stroke="url(#emptyGrad)" stroke-width="2" stroke-dasharray="4 4"/>
+                            <path d="M24 24h16M24 32h10M24 40h13" stroke="url(#emptyGrad)" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+                            <defs>
+                                <linearGradient id="emptyGrad" x1="12" y1="8" x2="52" y2="56">
+                                    <stop stop-color="#00e5ff" stop-opacity="0.4"/>
+                                    <stop offset="1" stop-color="#8b5cf6" stop-opacity="0.4"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <p class="empty-text">Paste your resume and click <strong>Analyze</strong> to see results</p>
+                </div>
+
+                <!-- Loading State -->
+                <div class="loading-state hidden" id="loading-state">
+                    <div class="loader-ring">
+                        <div class="ring"></div>
+                    </div>
+                    <p class="loading-text">Analyzing your resume...</p>
+                    <div class="loading-steps" id="loading-steps"></div>
+                </div>
+
+                <!-- Results Content -->
+                <div class="results-content hidden" id="results-content">
+                    <!-- Overall Score -->
+                    <div class="score-card glass-card" id="score-card">
+                        <div class="score-ring-wrap">
+                            <svg class="score-ring" viewBox="0 0 120 120">
+                                <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="8"/>
+                                <circle cx="60" cy="60" r="52" fill="none" stroke="url(#scoreGrad)" stroke-width="8"
+                                    stroke-linecap="round" stroke-dasharray="326.73" stroke-dashoffset="326.73"
+                                    id="score-circle" transform="rotate(-90 60 60)"/>
+                                <defs>
+                                    <linearGradient id="scoreGrad" x1="0" y1="0" x2="120" y2="120">
+                                        <stop stop-color="#00e5ff"/>
+                                        <stop offset="1" stop-color="#8b5cf6"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <div class="score-value">
+                                <span class="score-num" id="score-num">0</span>
+                                <span class="score-max">/100</span>
+                            </div>
+                        </div>
+                        <div class="score-info">
+                            <h3 class="score-title" id="score-title">Resume Score</h3>
+                            <p class="score-desc" id="score-desc">Your resume analysis is complete.</p>
+                        </div>
+                    </div>
+
+                    <!-- Metric Cards -->
+                    <div class="metrics-grid" id="metrics-grid"></div>
+
+                    <!-- Sections Found -->
+                    <div class="detail-card glass-card" id="sections-card">
+                        <div class="detail-header">
+                            <h3 class="detail-title">
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                    <rect x="2" y="2" width="14" height="14" rx="3" stroke="#00e5ff" stroke-width="1.5"/>
+                                    <path d="M6 6h6M6 9h4M6 12h5" stroke="#00e5ff" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                                Sections Detected
+                            </h3>
+                        </div>
+                        <div class="sections-list" id="sections-list"></div>
+                    </div>
+
+                    <!-- Keywords Found -->
+                    <div class="detail-card glass-card" id="keywords-card">
+                        <div class="detail-header">
+                            <h3 class="detail-title">
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                    <circle cx="9" cy="9" r="7" stroke="#f59e0b" stroke-width="1.5"/>
+                                    <path d="M9 5v4l3 2" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                                Keywords & Skills Found
+                            </h3>
+                        </div>
+                        <div class="keywords-cloud" id="keywords-cloud"></div>
+                    </div>
+
+                    <!-- Suggestions -->
+                    <div class="detail-card glass-card" id="suggestions-card">
+                        <div class="detail-header">
+                            <h3 class="detail-title">
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                    <path d="M9 2l2 4 4.5.7-3.3 3.1.8 4.5L9 12.2 5 14.3l.8-4.5L2.5 6.7 7 6z" stroke="#10b981" stroke-width="1.5" stroke-linejoin="round"/>
+                                </svg>
+                                Improvement Suggestions
+                            </h3>
+                        </div>
+                        <div class="suggestions-list" id="suggestions-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-section" id="how-it-works">
+        <div class="section-header">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-desc">Three simple steps to a better resume</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card glass-card">
+                <div class="step-num">01</div>
+                <div class="step-icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect x="6" y="4" width="20" height="24" rx="4" stroke="url(#s1)" stroke-width="2"/>
+                        <path d="M11 12h10M11 16h7M11 20h9" stroke="url(#s1)" stroke-width="1.5" stroke-linecap="round"/>
+                        <defs><linearGradient id="s1" x1="6" y1="4" x2="26" y2="28"><stop stop-color="#00e5ff"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
+                    </svg>
+                </div>
+                <h3 class="step-title">Paste Resume</h3>
+                <p class="step-desc">Copy your resume text and paste it into the analyzer input field.</p>
+            </div>
+            <div class="step-card glass-card">
+                <div class="step-num">02</div>
+                <div class="step-icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="16" r="11" stroke="url(#s2)" stroke-width="2"/>
+                        <path d="M16 10v6l4 3" stroke="url(#s2)" stroke-width="2" stroke-linecap="round"/>
+                        <defs><linearGradient id="s2" x1="5" y1="5" x2="27" y2="27"><stop stop-color="#00e5ff"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
+                    </svg>
+                </div>
+                <h3 class="step-title">Instant Analysis</h3>
+                <p class="step-desc">Our engine scans your resume across 50+ checks in seconds.</p>
+            </div>
+            <div class="step-card glass-card">
+                <div class="step-num">03</div>
+                <div class="step-icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M8 18l5 5 11-14" stroke="url(#s3)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <defs><linearGradient id="s3" x1="8" y1="9" x2="24" y2="23"><stop stop-color="#00e5ff"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
+                    </svg>
+                </div>
+                <h3 class="step-title">Get Results</h3>
+                <p class="step-desc">Receive a detailed score, keyword analysis, and actionable suggestions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="brand-text">Resume<span class="brand-accent">IQ</span></span>
+                <p class="footer-tagline">Smart resume analysis for smarter careers.</p>
+            </div>
+            <div class="footer-copy">
+                &copy; 2026 ResumeIQ. Built with ❤️
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
